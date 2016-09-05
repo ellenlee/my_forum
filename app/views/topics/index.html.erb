@@ -1,12 +1,22 @@
 <h1>My Forum</h1>
-<ul>
+
+<table class="table table-condensed">
+	
+
 <% @topics.each do |topic| %>
-  <li>
- 	  <%= topic.title %>
-  <%= link_to 'Show', :controller => 'topics', :action => 'show', :id => topic %>
-  <%= link_to 'Edit', :controller => 'topics', :action => 'edit', :id => topic %>
-  <%= link_to 'Delete', :controller => 'topics', :action => 'destroy', :id => topic %>
-  </li>
+	<tr>
+	<td>#<%= topic.id %></td>
+	  <td><%= topic.title %>  (<%= topic.comments.size %>)</td>
+
+	  <td>
+		  <%= link_to 'Show', :controller => 'topics', :action => 'show', :id => topic %>
+		  <%= link_to 'Edit', :controller => 'topics', :action => 'edit', :id => topic %>
+		  <%= link_to 'Delete', :controller => 'topics', :action => 'destroy', :id => topic %>
+	  </td>
+  </tr>
+  
 <% end %>
-</ul>
+
+</table>
+
 <%= link_to '+ New topic', :controller => 'topics', :action => 'new' %>

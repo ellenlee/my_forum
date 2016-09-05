@@ -6,7 +6,9 @@
 
 <!-- 顯示留言 -->
 
-<div class="comment col-sm-6">
+<div class="comment col-xs-6">
+
+<h5>Comments (<%= @topic.comments.size %>)</h5>
 <% @topic.comments.each do |c| %>
 		
 	<span class="text-muted">
@@ -21,10 +23,11 @@
 	</span>
 <% end %>		
 </div>
-
+<br>
+<br>
 <!-- 留言表單 -->
 
-<div class="comment col-sm-6">
+<div class="comment col-xs-6">
 	<h5>留下您的回應</h5>
 	<br>
 	<%= form_for [@topic, @comment] do |f| %>
@@ -32,7 +35,6 @@
 		<%= f.label :content %>
 	  	<%= f.text_area :content, class: "form-control" %>
 	</div>
-		<<%= hidden_field_tag :topic_id, params[:topic_id] %>
 		<%= f.submit class: "btn btn-primary btn-sm" %>
 	<% end %>
 </div>
