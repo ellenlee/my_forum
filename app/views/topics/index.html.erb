@@ -1,15 +1,31 @@
 <h1>My Forum</h1>
 
 <table class="table table-condensed">
-	
+	<tr>
+		<th>#</th>
+		<th>主題貼</th>
+		<th>樓主</th>
+		<th>張貼時間</th>
+		<th>最後回覆時間</th>	
+		<th></th>
+	</tr>
 
 <% @topics.each do |topic| %>
 	<tr>
-	<td>#<%= topic.id %></td>
-	  <td><%= topic.title %>  (<%= topic.comments.size %>)</td>
-
+		<td>#<%= topic.id %></td>
+	  	<td><%= link_to topic.title, :controller => 'topics', :action => 'show', :id => topic %>
+	  	  (<%= topic.comments.size %>)</td>
+		<td><%= topic.user.nickname %></td>
+		<td><%= topic.created_at.strftime('%Y/%m/%d') %></td>	
+		<td>
+			<% if topic.comments.size > 0 %>
+			  <%= topic.comments.last.created_at.strftime('%H:%M') %>
+			<% else %>
+			  
+			<% end %>
+		</td>
 	  <td>
-		  <%= link_to 'Show', :controller => 'topics', :action => 'show', :id => topic %>
+		  
 		  <%= link_to 'Edit', :controller => 'topics', :action => 'edit', :id => topic %>
 		  <%= link_to 'Delete', :controller => 'topics', :action => 'destroy', :id => topic %>
 	  </td>

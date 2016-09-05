@@ -1,4 +1,6 @@
 <h1><%= @topic.title %></h1>
+<p>張貼日期：<%= @topic.created_at.strftime('%Y/%m/%d')%>｜
+張貼時間：<%= @topic.created_at.strftime('%H:%M')%></p>
 
 <%= simple_format(@topic.content) %>
 <hr>
