@@ -15,6 +15,14 @@ class TopicCommentsController < ApplicationController
   end
 
 
+  def destroy
+	@topic = Topic.find(params[:topic_id])
+	@comment = @topic.comments.find(params[:id])
+	@comment.destroy
+	redirect_to topic_path(@topic)
+	flash[:alert] = "留言已刪除！"
+	end
+
 private
 
   def comment_params

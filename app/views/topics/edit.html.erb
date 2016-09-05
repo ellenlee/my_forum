@@ -1,0 +1,5 @@
+<h1>Edit <%= @topic.title %></h1>
+
+<%= form_for @topic do |f| %>
+	<%= render :partial => 'form', :locals => { :f => f } %>
+<% end %>

@@ -3,6 +3,14 @@
 張貼時間：<%= @topic.created_at.strftime('%H:%M')%></p>
 
 <%= simple_format(@topic.content) %>
+
+<% if @topic.user == current_user %>
+	<p class="text-right"><small>
+		<%= link_to 'Edit', :controller => 'topics', :action => 'edit', :id => @topic %> - 
+		<%= link_to 'Delete', :controller => 'topics', :action => 'destroy', :id => @topic %>
+	</small></p>
+<% end %>
+
 <hr>
 
 
@@ -12,17 +20,18 @@
 
 <h5>Comments (<%= @topic.comments.size %>)</h5>
 <% @topic.comments.each do |c| %>
-		
-	<span class="text-muted">
+	
+	<span><%= c.content %><br></span>
+	<small class="text-muted">
 
-	<%= c.content %><br>
+	
 	<i><%= c.user.nickname %></i> - 
 		<% if c.user == current_user %>
 			<%= link_to "delete", topic_comment_path(@topic, c), :method => :delete %>
 		<% else %>
 		<% end %>
 	<br>	
-	</span>
+	</small>
 <% end %>		
 </div>
 <br>
