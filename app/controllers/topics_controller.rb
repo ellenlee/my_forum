@@ -9,11 +9,15 @@ class TopicsController < ApplicationController
 		@topic.save
 
 		redirect_to :action => :index
-		
 	end
 
 	def index
 		@topics = Topic.all
+	end
+
+	def show
+		@topic = Topic.find(params[:id])
+		@comment = Comment.new
 	end
 
 private
