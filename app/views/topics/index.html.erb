@@ -1,5 +1,7 @@
 <h1>My Forum</h1>
 
+<%= paginate @topics %>
+
 <table class="table table-condensed">
 	<tr>
 		<th>#</th>
@@ -14,7 +16,7 @@
 	<tr>
 		<td>#<%= topic.id %></td>
 	  	<td><%= link_to topic.title, :controller => 'topics', :action => 'show', :id => topic %>
-	  	  (<%= topic.comments.size %>)</td>
+	  	<small><sup>	  (<%= topic.comments.size %>)</sup></small></td>
 		<td><%= topic.user.nickname %></td>
 		<td><%= topic.created_at.strftime('%Y/%m/%d') %></td>	
 		<td>
