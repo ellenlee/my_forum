@@ -250,7 +250,7 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   fb_config = Rails.application.config_for(:facebook)
   config.omniauth :facebook, fb_config['app_id'], fb_config['secret'], 
-    :scope => 'public_profile,email', :info_fields => 'email,name', 
+    :scope => 'public_profile,email', :info_fields => 'email, name', 
     callback_url: "http://localhost:3000/users/auth/facebook/callback"
 
 

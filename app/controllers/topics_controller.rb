@@ -8,7 +8,7 @@ class TopicsController < ApplicationController
 	def create
 		@topic = Topic.new(topic_params)
 		@topic.user = current_user
-		
+
 		if @topic.save
 			redirect_to topics_path
 			flash[:notice] = "新增成功"
@@ -20,6 +20,7 @@ class TopicsController < ApplicationController
 	def index
 		@topics = Topic.all
 		@topics = Topic.page(params[:page]).per(10)
+
 	end
 
 	def show

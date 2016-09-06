@@ -7,6 +7,8 @@ class TopicCommentsController < ApplicationController
   	@comment.user = current_user
 
 	  if @comment.save
+			topic_comments_info_update
+
 	    redirect_to topic_path(@topic)
 	    flash[:notice] = "感謝你的留言！"
 	  else
@@ -19,6 +21,9 @@ class TopicCommentsController < ApplicationController
 	@topic = Topic.find(params[:topic_id])
 	@comment = @topic.comments.find(params[:id])
 	@comment.destroy
+
+	topic_comments_info_update
+	
 	redirect_to topic_path(@topic)
 	flash[:alert] = "留言已刪除！"
 	end
@@ -29,4 +34,12 @@ private
 	params.require(:comment).permit(:content, :user_id, :topic_id)
   end
 
+  def topic_comments_info_update
+  	@topic.last_comment_time = @comment.created_at
+		@topic.comments_lens = @topic.comments.size
+		@topic.save
+  end
+
 end
+
+#.strftime('%Y/%m/%d %H:%M')
