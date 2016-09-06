@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   	resources :comments, :controller => "topic_comments"
   end
 
+  resources :categories
+
   root to: 'topics#index'
 end

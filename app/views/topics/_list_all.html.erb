@@ -1,0 +1,23 @@
+
+
+<!-- 所選範疇內的文章列表 -->
+
+<% @topics.each do |topic| %>
+
+	<tr>
+		<td>#<%= topic.id %></td>
+	  	<td class='text-left'><%= link_to topic.title, topic_path(topic) %></td>
+	  	<td>
+	  	<%= topic.comments_count %></td>
+		<td><%= topic.user.name %></td>
+		<td><%= topic.created_at.strftime('%Y/%m/%d') %></td>
+		<% if topic.comments_count == 0 %>
+			<td></td>
+			<td></td>
+		<% else %>
+			<td><%= topic.comments.last.user.name %></td>	
+			<td><%= topic.last_comment_at.strftime('%m/%d %H:%M') %></td>
+		<% end %>		
+  </tr>
+<% end %>
+</table>

@@ -16,10 +16,10 @@ namespace :dev do
 		5.times do |i|
 		  e = Topic.create( :title => Faker::Lorem.sentence, :content => Faker::Lorem.sentence(15), :user_id => 1 )
 		  2.times do |j|
-				e.comments.create( :content => Faker::Lorem.sentence(5), :user_id => 1 )
+				e.comments.create( :content => Faker::Lorem.sentence(5), :user_id => 1)
 		  end
 		  2.times do |j|
-				e.comments.create( :content => Faker::Lorem.sentence(7), :user_id => 2 )
+				e.comments.create( :content => Faker::Lorem.sentence(7), :user_id => 2)
 		  end
 	  end
 	  

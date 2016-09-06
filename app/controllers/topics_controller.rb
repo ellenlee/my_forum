@@ -18,26 +18,28 @@ class TopicsController < ApplicationController
 	end
 
 	def index
+		# @category = Category.find(params[:id])
+		# @topics = Topic.order_the_list(params[:order], params[:page])		
+ 
+ 		if params[:category].present?
+
+ 			@category = Category.find(params[:category])
+ 			@page_title = @category.name
+			@topics = @category.topics.page(params[:page]).per(10)
+
+		else
+			@page_title = "XXX 課程中心"	
+			@topics = Topic.all.page(params[:page]).per(10)
+		end
 
 		if params[:order]
-			case params[:order]
-			when 'id'
-				sort_by = 'id ASC'
-			when 'comments_count'
-				sort_by = 'comments_count DESC'
-			when 'created_at'
-				sort_by = 'created_at DESC'
-			when 'last_comment_at'
-				sort_by = 'last_comment_at DESC'	
-			else 
-				sort_by = 'last_comment_at DESC'	
-			end
-		
-      @topics = Topic.order(sort_by).page(params[:page]).per(10)
-    else
-     	@topics = Topic.order('created_at DESC').page(params[:page]).per(10)
+			@topics = @topics.order("#{params[:order]} DESC").page(params[:page]).per(10)
+			
+		else
+			@topics.order('created_at DESC')
 		end
 	end
+
 
 	def show
 		set_topic
