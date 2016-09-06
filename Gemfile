@@ -40,6 +40,10 @@ gem 'devise'
 
 # 第三方登入 
 gem 'omniauth-facebook'
+#使用 HTTP Client 做 API 串接
+gem 'rest-client'
+# 檔案上傳
+gem "paperclip", "~> 5.0.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,0 +1,5 @@
+class ApiDemo < ApplicationRecord
+
+
+
+end
