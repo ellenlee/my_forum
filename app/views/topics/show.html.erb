@@ -25,7 +25,7 @@
 	<small class="text-muted">
 
 	
-	<i><%= c.user.nickname %></i> - 
+	<i><%= c.user.name %></i> - 
 		<% if c.user == current_user %>
 			<%= link_to "delete", topic_comment_path(@topic, c), :method => :delete %>
 		<% else %>

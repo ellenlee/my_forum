@@ -17,7 +17,7 @@
 		<td>#<%= topic.id %></td>
 	  	<td><%= link_to topic.title, :controller => 'topics', :action => 'show', :id => topic %>
 	  	<small><sup>	  (<%= topic.comments.size %>)</sup></small></td>
-		<td><%= topic.user.nickname %></td>
+		<td><%= topic.user.name %></td>
 		<td><%= topic.created_at.strftime('%Y/%m/%d') %></td>	
 		<td>
 			<% if topic.comments.size > 0 %>

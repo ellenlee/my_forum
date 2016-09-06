@@ -11,6 +11,8 @@ gem 'puma', '~> 3.0'
 # bootstrap
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
+#分頁
+gem 'kaminari'
 
 
 # Use Uglifier as compressor for JavaScript assets
@@ -33,14 +35,18 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+# 使用者登入
 gem 'devise'
-gem 'faker'
-gem 'kaminari'
+
+# 第三方登入 
+gem 'omniauth-facebook'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  #假資料
+  gem 'faker'
+
 end
 
 group :development do
