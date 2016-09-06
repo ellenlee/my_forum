@@ -33,16 +33,16 @@
 <div class="comment col-xs-6">
 
 <h5>Comments (<%= @topic.comments.size %>)</h5>
-<% @topic.comments.each do |c| %>
-	<span><%= c.content %><br></span>
-	<p class="text-right text-muted"><small>
-		<i><%= c.user.name %></i>｜
-		<%= c.created_at.strftime('%Y/%m/%d %H:%M') %>
-		<% if c.user == current_user %>
-			｜<%= link_to "delete", topic_comment_path(@topic, c), :method => :delete %>
+<% @topic.comments.each do |comment| %>
+	<span><%= comment.content %><br></span>
+	<footer class="text-right text-muted"><small>
+		<i><%= comment.user.name %></i>｜
+		<%= comment.created_at.strftime('%Y/%m/%d %H:%M') %>
+		<% if comment.user == current_user %>
+			｜<%= link_to "delete", topic_comment_path(@topic, comment), :method => :delete %>
 		<% else %>
 		<% end %>	
-	</small></p>
+	</small></footer>
 <% end %>		
 </div>
 <br>

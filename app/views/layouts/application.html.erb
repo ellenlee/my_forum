@@ -30,6 +30,12 @@
   <%= link_to "以 Facebook 登入", user_facebook_omniauth_authorize_path %>
 <% end %> 
 
+<!-- navigation -->
+<ul class="list-inline pull-right">
+  <li>關於本站</li>
+  <li>會員中心</li>
+</ul>  
+
 <!-- 警告訊息 -->
 <% if flash[:notice].present? %>
   <div class="alert alert-success" role="alert">
@@ -42,6 +48,9 @@
    <%= flash[:alert]%>
   </div>
 <% end %>
+
+
+
 
 <!-- yield -->
   <%= yield %>
