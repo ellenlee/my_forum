@@ -18,25 +18,25 @@ class TopicCommentsController < ApplicationController
 
 
   def destroy
-	@topic = Topic.find(params[:topic_id])
-	@comment = @topic.comments.find(params[:id])
-	@comment.destroy
+		@topic = Topic.find(params[:topic_id])
+		@comment = @topic.comments.find(params[:id])
+		@comment.destroy
 
-	topic_comments_info_update
-	
-	redirect_to topic_path(@topic)
-	flash[:alert] = "留言已刪除！"
+		topic_comments_info_update
+		
+		redirect_to topic_path(@topic)
+		flash[:alert] = "留言已刪除！"
 	end
 
-private
+	private
 
   def comment_params
-	params.require(:comment).permit(:content, :user_id, :topic_id)
+		params.require(:comment).permit(:content, :user_id, :topic_id)
   end
 
   def topic_comments_info_update
-  	@topic.last_comment_time = @comment.created_at
-		@topic.comments_counts = @topic.comments.size
+  	@topic.last_comment_at = @comment.created_at
+		@topic.comments_count = @topic.comments.size
 		@topic.save
   end
 

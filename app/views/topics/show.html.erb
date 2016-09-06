@@ -1,13 +1,26 @@
 <h1><%= @topic.title %></h1>
-<p>張貼日期：<%= @topic.created_at.strftime('%Y/%m/%d')%>｜
-張貼時間：<%= @topic.created_at.strftime('%H:%M')%></p>
+<div>
+	<small>
+	<p class="pull-right">
+			張貼日期：<%= @topic.created_at.strftime('%Y/%m/%d')%>｜
+			張貼時間：<%= @topic.created_at.strftime('%H:%M')%>
+		</p>
+		<ul class="list-inline">
+			<% @topic.categories.each do |cate| %>
+				<li class="btn btn-info  btn-xs active"><%= cate.name %></li>
+			<% end %>		
+		</ul>
+		
+</small>
+	
+</div>
 
 <%= simple_format(@topic.content) %>
 
 <% if @topic.user == current_user %>
 	<p class="text-right"><small>
-		<%= link_to 'Edit', :controller => 'topics', :action => 'edit', :id => @topic %> - 
-		<%= link_to 'Delete', :controller => 'topics', :action => 'destroy', :id => @topic %>
+		<%= link_to 'Edit', edit_topic_path(@topic)  %> - 
+		<%= link_to 'Delete', topic_path(@topic) , :method => :delete %>
 	</small></p>
 <% end %>
 
@@ -19,7 +32,7 @@
 
 <div class="comment col-xs-6">
 
-<h5>Comments <sup>(<%= @topic.comments.size %>)</sup></h5>
+<h5>Comments (<%= @topic.comments.size %>)</h5>
 <% @topic.comments.each do |c| %>
 	<span><%= c.content %><br></span>
 	<p class="text-right text-muted"><small>

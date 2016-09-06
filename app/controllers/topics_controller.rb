@@ -19,13 +19,23 @@ class TopicsController < ApplicationController
 
 	def index
 
-
 		if params[:order]
-      sort_by = params[:order]
+			case params[:order]
+			when 'id'
+				sort_by = 'id ASC'
+			when 'comments_count'
+				sort_by = 'comments_count DESC'
+			when 'created_at'
+				sort_by = 'created_at DESC'
+			when 'last_comment_at'
+				sort_by = 'last_comment_at DESC'	
+			else 
+				sort_by = 'last_comment_at DESC'	
+			end
+		
       @topics = Topic.order(sort_by).page(params[:page]).per(10)
-      
-		else
-			@topics = Topic.order('last_comment_time DESC').page(params[:page]).per(10)
+    else
+     	@topics = Topic.order('created_at DESC').page(params[:page]).per(10)
 		end
 	end
 
@@ -52,9 +62,9 @@ class TopicsController < ApplicationController
 		redirect_to :action => :index
 	end
 
-private
+	private
 	def topic_params
-		params.require(:topic).permit(:title, :content)
+		params.require(:topic).permit(:title, :content, :category_ids => [])
 	end
 
 	def set_topic

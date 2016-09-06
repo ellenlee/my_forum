@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906071737) do
+ActiveRecord::Schema.define(version: 20160906100142) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
@@ -20,14 +26,21 @@ ActiveRecord::Schema.define(version: 20160906071737) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "topic_category_ships", force: :cascade do |t|
+    t.integer  "topic_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "topics", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.integer  "user_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.datetime "last_comment_time"
-    t.integer  "comments_counts",   default: 0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.datetime "last_comment_at"
+    t.integer  "comments_count",  default: 0
   end
 
   create_table "users", force: :cascade do |t|
