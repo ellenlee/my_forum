@@ -13,12 +13,13 @@
 
 <hr>
 
+<p class="text-right"><%= link_to '⇦ Back to index', topics_path %></p>
 
 <!-- 顯示留言 -->
 
 <div class="comment col-xs-6">
 
-<h5>Comments (<%= @topic.comments.size %>)</h5>
+<h5>Comments <sup>(<%= @topic.comments.size %>)</sup></h5>
 <% @topic.comments.each do |c| %>
 	
 	<span><%= c.content %><br></span>
@@ -50,5 +51,3 @@
 	<% end %>
 </div>
 
-
-<p><%= link_to '⇦ Back to index', topics_path %></p>

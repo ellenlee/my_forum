@@ -7,14 +7,19 @@ class TopicsController < ApplicationController
 
 	def create
 		@topic = Topic.new(topic_params)
-		@topic.save
-
-		redirect_to :action => :index
+		@topic.user = current_user
+		
+		if @topic.save
+			redirect_to topics_path
+			flash[:notice] = "新增成功"
+		else
+			render :action => :new
+		end
 	end
 
 	def index
 		@topics = Topic.all
-		@topics = Topic.page(params[:page]).per(5)
+		@topics = Topic.page(params[:page]).per(10)
 	end
 
 	def show

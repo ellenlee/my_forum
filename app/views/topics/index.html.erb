@@ -16,7 +16,7 @@
 	<tr>
 		<td>#<%= topic.id %></td>
 	  	<td><%= link_to topic.title, :controller => 'topics', :action => 'show', :id => topic %>
-	  	<small><sup>	  (<%= topic.comments.size %>)</sup></small></td>
+	  	<sup>	  (<%= topic.comments.size %>)</sup></td>
 		<td><%= topic.user.name %></td>
 		<td><%= topic.created_at.strftime('%Y/%m/%d') %></td>	
 		<td>
