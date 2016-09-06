@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20160906071737) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.datetime "last_comment_time"
-    t.integer  "comments_lens",     default: 0
+    t.integer  "comments_counts",   default: 0
   end
 
   create_table "users", force: :cascade do |t|

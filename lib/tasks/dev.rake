@@ -37,7 +37,7 @@ namespace :dev do
 	  puts "topic comments info update"
 	  Topic.all.each do |t|
 	  	t.last_comment_time = t.comments.last.created_at
-	  	t.comments_lens = t.comments.size
+	  	t.comments_counts = t.comments.size
 	  	t.save
 	  end
   

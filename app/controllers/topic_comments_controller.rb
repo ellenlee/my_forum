@@ -36,10 +36,9 @@ private
 
   def topic_comments_info_update
   	@topic.last_comment_time = @comment.created_at
-		@topic.comments_lens = @topic.comments.size
+		@topic.comments_counts = @topic.comments.size
 		@topic.save
   end
 
 end
 
-#.strftime('%Y/%m/%d %H:%M')

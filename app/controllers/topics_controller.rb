@@ -18,9 +18,15 @@ class TopicsController < ApplicationController
 	end
 
 	def index
-		@topics = Topic.all
-		@topics = Topic.page(params[:page]).per(10)
 
+
+		if params[:order]
+      sort_by = params[:order]
+      @topics = Topic.order(sort_by).page(params[:page]).per(10)
+      
+		else
+			@topics = Topic.order('last_comment_time DESC').page(params[:page]).per(10)
+		end
 	end
 
 	def show
@@ -53,7 +59,6 @@ private
 
 	def set_topic
 		@topic = Topic.find(params[:id])
-		
 	end
 
 end

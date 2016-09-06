@@ -1,16 +1,17 @@
 <h1>My Forum</h1>
 
+
 <%= paginate @topics %>
 
 <table class="table table-condensed">
 	<tr>
-		<th>#</th>
+		<th><%= link_to '#▴', topics_path(order: 'id ASC') %></th>
 		<th>主題貼</th>
-		<th>回覆數</th>
+		<th><%= link_to '回覆數▾', topics_path(order: 'comments_counts DESC') %></th>
 		<th>樓主</th>
-		<th>張貼時間</th>
+		<th><%= link_to '張貼時間▾', topics_path(order: 'created_at DESC') %></th>
 		<th>最新回覆</th>
-		<th>最新回覆時間</th>	
+		<th><%= link_to '最新回覆時間▾', topics_path(order: 'last_comment_time DESC') %></th>	
 		<th></th>
 	</tr>
 
@@ -18,13 +19,19 @@
 	<tr>
 		<td>#<%= topic.id %></td>
 	  	<td><%= link_to topic.title, :controller => 'topics', :action => 'show', :id => topic %></td>
-	  	<td><%= topic.comments_lens %></td>
+	  	<td>
+	  	<%= topic.comments_counts %></td>
 		<td><%= topic.user.name %></td>
 		<td><%= topic.created_at.strftime('%Y/%m/%d') %></td>
-		<td><%= topic.comments.last.user.name %></td>	
-		<td><%= topic.last_comment_time.strftime('%m/%d %H:%M') %></td>
+		<% if topic.comments_counts ==0 %>
+			<td></td>
+			<td></td>
+		<% else %>
+			<td><%= topic.comments.last.user.name %></td>	
+			<td><%= topic.last_comment_time.strftime('%m/%d %H:%M') %></td>
+		<% end %>		
   </tr>
-  
+ 
 <% end %>
 
 </table>
