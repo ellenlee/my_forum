@@ -32,6 +32,7 @@ class User < ApplicationRecord
      user = User.new
      user.fb_uid = auth.uid
      user.fb_token = auth.credentials.token
+     user.name = auth.info.name
      user.email = auth.info.email
      user.password = Devise.friendly_token[0,20]
      #user.fb_raw_data = auth
