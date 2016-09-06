@@ -22,21 +22,18 @@ class TopicsController < ApplicationController
 		# @topics = Topic.order_the_list(params[:order], params[:page])		
  
  		if params[:category].present?
-
  			@category = Category.find(params[:category])
  			@page_title = @category.name
-			@topics = @category.topics.page(params[:page]).per(10)
-
+			@topics = @category.topics.order('id DESC').page(params[:page]).per(10)
 		else
 			@page_title = "XXX 課程中心"	
-			@topics = Topic.all.page(params[:page]).per(10)
+			@topics = Topic.order('id DESC').page(params[:page]).per(10)
 		end
 
 		if params[:order]
 			@topics = @topics.order("#{params[:order]} DESC").page(params[:page]).per(10)
-			
 		else
-			@topics.order('created_at DESC')
+			@topics.order('id DESC')
 		end
 	end
 
@@ -52,6 +49,10 @@ class TopicsController < ApplicationController
 
 	def update
 		set_topic
+		if params[:_remove_logo] == "1"
+			@topic.logo = nil
+		end
+
 		@topic.update(topic_params)
 
 		redirect_to :action => :show, :id => @topic
@@ -66,7 +67,7 @@ class TopicsController < ApplicationController
 
 	private
 	def topic_params
-		params.require(:topic).permit(:title, :content, :category_ids => [])
+		params.require(:topic).permit(:title, :content, :logo, :category_ids => [])
 	end
 
 	def set_topic

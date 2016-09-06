@@ -19,4 +19,11 @@
 	<%= f.label :content, "內容" %>
 	<%= f.text_area :content, class: "form-control" %>
 </div>
+<div class="form-group">
+	<%= f.label :logo, "上傳檔案" %>
+	<%= f.file_field :logo %>
+	<% if @topic.logo.exists? %>
+		<%= check_box_tag "_remove_logo", "1" %>移除圖片
+	<% end %>
+</div>
 <%= f.submit class: "btn btn-primary btn-sm"  %>
