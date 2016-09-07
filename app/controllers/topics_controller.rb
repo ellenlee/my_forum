@@ -37,6 +37,10 @@ class TopicsController < ApplicationController
 		end
 	end
 
+	# GET topics/latest
+	def latest
+			@topics = Topic.order("id DESC").limit(3)
+	end
 
 	def show
 		set_topic
@@ -73,5 +77,4 @@ class TopicsController < ApplicationController
 	def set_topic
 		@topic = Topic.find(params[:id])
 	end
-
 end

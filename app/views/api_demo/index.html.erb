@@ -1,0 +1,39 @@
+<h1>Ajax Demo</h1>
+
+<%= link_to 'load html', api_demo_test_path, :id => "ajaxhtml"  %>
+<br>
+<%= link_to 'load JSON', api_demo_test_path, :id => "ajaxjson" %>
+<br>
+<%= link_to 'load JS', api_demo_test_path, :id => "ajaxscript", :remote => true %>
+
+
+
+<div id="content">
+</div>
+
+<script>
+  $("#ajaxhtml").click(function(e){
+    e.preventDefault();
+    var url = $(this).attr("href");
+    $.ajax(url, {
+      success: function(response) {
+        $("#content").html(response)
+      }
+    })
+  })
+
+$("#ajaxjson").click(function(e){
+     e.preventDefault();
+
+     var url = $(this).attr("href");
+     $.ajax(url, {
+       dataType: "json",
+       success: function(data) {
+         console.log(data);
+         var html = "<p>" + data.title + "</p>";
+         $("#content").html( html );
+       }
+     })
+   })
+
+</script>

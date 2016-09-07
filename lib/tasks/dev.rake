@@ -13,23 +13,13 @@ namespace :dev do
 		# 產生初始假資訊
 		user = User.create!( :email => "root@example.com", :name => 'root', :password => "12345678")
 		user2 = User.create!( :email => "lunacy20@example.com", :name => 'ellen', :password => "12345678")
-		5.times do |i|
+		20.times do |i|
 		  e = Topic.create( :title => Faker::Lorem.sentence, :content => Faker::Lorem.sentence(15), :user_id => 1 )
-		  2.times do |j|
+		  3.times do |j|
 				e.comments.create( :content => Faker::Lorem.sentence(5), :user_id => 1)
 		  end
-		  2.times do |j|
+		  3.times do |j|
 				e.comments.create( :content => Faker::Lorem.sentence(7), :user_id => 2)
-		  end
-	  end
-	  
-	  10.times do |i|
-		  e = Topic.create( :title => Faker::Lorem.sentence, :content => Faker::Lorem.sentence(15), :user_id => 2 )
-		  2.times do |j|
-				e.comments.create( :content => Faker::Lorem.sentence(5), :user_id => 1 )
-		  end
-		  2.times do |j|
-				e.comments.create( :content => Faker::Lorem.sentence(7), :user_id => 2 )
 		  end
 	  end
 
@@ -53,21 +43,24 @@ namespace :dev do
   	data = JSON.parse(json_string)
 
   	puts "ready to use MRT API"
-  	@count = 0	
+  	@update_count = 0
+  	@new_count = 0	
   	data["result"]["results"].each do |u|
 		
   		existing = ApiDemo.find_by_raw_id(u["_id"])
 
   		if existing
   			#update
+  			puts "更新 #{u["_id"]} : #{u["sna"]}"
+  			@update_count += 1
   		else
   			ApiDemo.create(:raw_id => u["_id"], :name => u["sna"], :address =>u["ar"], :area => u["sarea"])
   			puts "#{u["_id"]} : #{u["sna"]}"
-  			@count += 1
+  			@new_count += 1
   		end
   		 
   	end
   	puts "-----"
-  	puts "共 #{@count} 筆資料新增"
+  	puts "共更新 #{@update_count} 筆資料, 新增 #{@new_count} 筆資料"
   end
 end

@@ -23,9 +23,11 @@ class TopicCommentsController < ApplicationController
 		@comment.destroy
 
 		topic_comments_info_update
-		
-		redirect_to topic_path(@topic)
-		flash[:alert] = "留言已刪除！"
+
+		respond_to do |format|
+			format.html 
+			format.js
+		end	
 	end
 
 	private
