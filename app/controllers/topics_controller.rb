@@ -30,14 +30,9 @@ class TopicsController < ApplicationController
 		if params[:order]
 			@topics = @topics.order(params[:order].to_sym => :DESC)
 		else
-			@topics = @topics.order('id ASC')
+			@topics = @topics.order('id DESC')
 		end
 		prepare_variable_for_template
-	end
-
-	# GET topics/about
-	def about
-			@topics = Topic.order("id DESC").limit(3)
 	end
 
 	def show

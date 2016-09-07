@@ -1,0 +1,41 @@
+<h2>修改個人資料</h2>
+
+<%= form_for current_user do |f| %>
+	<!-- 錯誤訊息 -->
+	<% if current_user.errors.any? %>      
+		<% current_user.errors.full_messages.each do |msg| %>
+			<div class="alert alert-danger" role="alert"><%= msg %></div>
+		<% end %>
+	<% end %>
+
+<!-- 表單內容 -->
+
+<div class="form-group">
+	<%= f.label :name, "名稱" %>
+	<%= f.text_field :name, class: "form-control" %>
+</div>
+
+<div class="form-group">
+	<%= f.label :email, "E-mail" %>
+	<%= f.email_field :email, class: "form-control" %>
+</div>
+		
+<div class="form-group">
+	<%= f.label :avatar, "更新個人照片" %>
+	<%= f.file_field :avatar %>
+	<% if current_user.avatar.exists? %>
+		<%= image_tag( current_user.avatar.url(:thumb) ) %>
+		<%= check_box_tag "_remove_avatar", "1" %>移除現有圖片
+	<% end %>
+</div>
+
+<div class="form-group">
+	<%= f.label :info, "個人簡介" %>
+	<%= f.text_area :info, class: "form-control" %>
+</div>
+
+<%= f.submit class: "btn btn-primary btn-sm"  %>
+<% end %>
+
+<br>
+<p><%= link_to '⇦ Back', :back %></p>
