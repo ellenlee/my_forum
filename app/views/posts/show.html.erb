@@ -1,0 +1,66 @@
+<!-- header -->
+<h1><%= @post.title %></h1>
+
+<footer class=" pull-right">
+	<%= link_to @post.user.name, profile_user_path %>｜
+	<%= @post.created_at.strftime('%Y-%m-%d %H:%M')%>
+</footer>
+
+<ul class="list-inline">
+	<% @post.categories.each do |cate| %>
+		<li class="btn btn-default btn-xs active"><%= cate.name %></li>
+	<% end %>		
+</ul>
+
+<!-- content -->
+<% if @post.img.exists? %>
+	<%= image_tag( @post.img.url(:medium) ) %>
+<% end %>
+
+<%= simple_format(@post.content) %>
+
+<% if @post.user == current_user %>
+	<p class="text-right"><small>
+		<%= link_to 'Edit', edit_post_path(@post)  %> - 
+		<%= link_to 'Delete', post_path(@post) , :method => :delete %>
+	</small></p>
+<% end %>
+<hr>
+
+<!-- 顯示留言 -->
+<div class="reply col-sm-6">
+
+	<div class="flash_msg"></div>
+	<h5>回應 (<%= @post.replies.count %>)</h5>
+
+
+	<% @post.replies.each do |reply| %>
+	<div id="reply-<%= reply.id %>">
+		<span><%= reply.content %><br></span>
+		<footer class="text-right text-muted"><small>
+			<i><%= reply.user.name %></i>｜
+			<%= reply.created_at.strftime('%Y/%m/%d %H:%M') %>
+			<% if reply.user == current_user %>
+				｜<%= link_to "delete", post_reply_path(@post, reply), :method => :delete, :remote => true %>
+			<% end %>	
+		</small></footer>
+	</div>
+	<% end %>		
+
+</div>
+<br>
+<br>
+
+<!-- 留言表單 -->
+<div class="reply col-sm-6">
+	<h5>留下您的回應</h5>
+	<br>
+	<%= form_for [@post, @reply] do |f| %>
+	<div class="form-group">
+		<%= f.label :content %>
+	  <%= f.text_area :content, class: "form-control" %>
+	</div>
+	<%= f.submit class: "btn btn-primary btn-sm" %>
+	<% end %>
+</div>
+

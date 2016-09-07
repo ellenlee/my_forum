@@ -1,5 +1,0 @@
-class ApiDemo < ApplicationRecord
-
-
-
-end

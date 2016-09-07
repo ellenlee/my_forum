@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>｜XXX 課程中心｜<%= @page_title%></title>
+    <title>專案實作學習中心｜<%= @page_title%></title>
 
     <%= csrf_meta_tags %>
 
@@ -20,38 +20,36 @@
 
 <body>
 
-<!-- 全站導覽列 -->
-<div class="clearfix">
-  <p class="pull-left"><%= link_to "回到首頁", topics_path %></p>
-  <ul class="list-inline pull-right">
-    <li><%= link_to "關於本站", about_topics_path %></li>
-    <% if current_user %>
-      <li><%= link_to '會員中心 ('+current_user.name+')', profile_user_path(current_user) %></li>
-      <li><%= link_to('登出', destroy_user_session_path, :method => :delete) %></li>
-    <% else %>
-      <%= link_to('註冊', new_registration_path(:user)) %> |
-      <%= link_to('登入', new_session_path(:user)) %> or
-      <%= link_to "以 Facebook 登入", user_facebook_omniauth_authorize_path %>
-    <% end %> 
-  </ul>  
-</div>
-<!-- 警告訊息 -->
-<% if flash[:notice].present? %>
-  <div class="alert alert-success" role="alert">
-    <%= flash[:notice]%>
+  <!-- 全站導覽列 -->
+  <div class="clearfix">
+    <p class="pull-left"><%= link_to "回到首頁", posts_path %></p>
+    <ul class="list-inline pull-right">
+      <li><%= link_to "關於本站", about_posts_path %></li>
+      <% if current_user %>
+        <li><%= link_to '會員中心 ('+current_user.name+')', profile_user_path(current_user) %></li>
+        <li><%= link_to('登出', destroy_user_session_path, :method => :delete) %></li>
+      <% else %>
+        <%= link_to('註冊', new_registration_path(:user)) %> |
+        <%= link_to('登入', new_session_path(:user)) %> or
+        <%= link_to "以 Facebook 登入", user_facebook_omniauth_authorize_path %>
+      <% end %> 
+    </ul>  
   </div>
-<% end %>
+  
+  <!-- 警告訊息 -->
+  <% if flash[:notice].present? %>
+    <div class="alert alert-success" role="alert">
+      <%= flash[:notice]%>
+    </div>
+  <% end %>
 
-<% if flash[:alert].present? %>
-  <div class="alert alert-danger" role="alert">
-   <%= flash[:alert]%>
-  </div>
-<% end %>
+  <% if flash[:alert].present? %>
+    <div class="alert alert-danger" role="alert">
+     <%= flash[:alert]%>
+    </div>
+  <% end %>
 
-
-
-
-<!-- yield -->
   <%= yield %>
+
 </body>
 </html>

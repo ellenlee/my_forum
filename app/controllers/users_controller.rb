@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
 
 	def profile
-		@topics = current_user.topics.page(params[:t_page]).per(5).order('id DESC')
-		@comments = current_user.comments.page(params[:c_page]).per(5).order('id DESC')
+		@posts = current_user.posts.page(params[:p_page]).per(5).order('id DESC')
+		@replies = current_user.replies.page(params[:r_page]).per(5).order('id DESC')
 	end
 
 	def edit

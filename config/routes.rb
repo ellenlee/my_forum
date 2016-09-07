@@ -8,15 +8,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :topics do
+  resources :posts do
   	collection do
   		get :about
   	end
-  	resources :comments, :controller => "topic_comments"
+  	resources :replies, :controller => "post_replies"
   end
 
   resources :categories
 
-  root to: 'topics#index'
+  root to: 'posts#index'
 
 end

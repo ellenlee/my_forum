@@ -1,5 +1,7 @@
 class Category < ApplicationRecord
-	has_many :topic_category_ships
-	has_many :topics, :through =>:topic_category_ships
+	validates_presence_of :name
+
+	has_many :post_categoryships
+	has_many :posts, :through =>:post_categoryships
 
 end
