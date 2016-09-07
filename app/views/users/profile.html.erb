@@ -1,19 +1,93 @@
 
 <p class="pull-right">註冊日期：<%= current_user.created_at.strftime('%Y/%m/%d') %></p>
 
-<div class="col-sm-4 text-center">
-	<%= image_tag( current_user.avatar.url(:medium) ) %>
+
+<div class="clearfix">
+	<div class="pull-left" style="padding:20px">
+		<%= image_tag( current_user.avatar.url(:medium), width: '200px', class: 'center-block' ) %>
+		<br>	
+	</div>
+	<div>
+		<h1><%= current_user.name %></h1>
+		<p><%= mail_to current_user.email %></p>	
+		<p>
+			<%= current_user.info %><br>
+	  	<%= button_to '修改個人資料', edit_user_path(current_user), :method => :get %>
+		</p>	
+	</div>
 </div>
-<div class="col-sm-8">
-	<h1><%= current_user.name %></h1>
-	<p><%= current_user.email %></p>	
-	
-	<p>
-		<%= current_user.info %><br>
-  	<%= button_to '修改個人資料', edit_user_path(current_user), :method => :get %>
-	</p>	
-
-</div>
 
 
+<hr >
+<h3>我的文章<small>(<%= current_user.topics.count %>)</small></h3>
+<!-- 文章列表標題（具排序功能） -->
+<%= paginate @topics, :param_name => :t_page %>
 
+
+<table class="table table-condensed text-center">
+	<tr>
+		<th><%= link_to '#▾', topics_path(order: 'id', category: params[:category]) %></th>
+		<th>主題貼</th>
+		<th><%= link_to '回覆數▾', topics_path(order: 'comments_count', category: params[:category]) %></th>
+		<th>樓主</th>
+		<th><%= link_to '張貼時間▾', topics_path(order: 'created_at', category: params[:category]) %></th>
+		<th>最新回覆</th>
+		<th><%= link_to '最新回覆時間▾', topics_path(order: 'last_comment_at', category: params[:category]) %></th>	
+		<th></th>
+	</tr>
+<!-- 所選範疇內的文章列表 -->
+
+<% @topics.each do |topic| %>
+
+	<tr>
+		<td>
+			#<%= topic.id %></td>
+  	<td class='text-left'><%= link_to topic.title, topic_path(topic) %></td>
+  	<td>
+  		<%= topic.comments_count %></td>
+		<td><%= topic.user.name %></td>
+		<td><%= topic.created_at.strftime('%Y/%m/%d') %></td>
+		<% if topic.comments_count == 0 %>
+			<td></td>
+			<td></td>
+		<% else %>
+			<td><%= topic.comments.last.user.name %></td>	
+			<td><%= topic.last_comment_at.strftime('%m/%d %H:%M') %></td>
+		<% end %>		
+  </tr>
+<% end %>
+</table>
+
+<h3>我的留言<small>(<%=current_user.comments.count %>)</small></h3>
+<%= paginate @comments, :param_name => :c_page %>
+
+<table class="table table-condensed">
+	<tr>
+		<th>#</th>
+		<th>主題貼</th>
+		<th>留言內容</th>
+		<th>留言時間</th>
+		<th>回應</th>
+		<th>最新回覆時間</th>
+	</tr>
+<!-- 所選範疇內的文章列表 -->
+
+<% @comments.each do |comment| %>
+
+	<tr>
+		<td>
+			#<%= comment.topic_id %></td>
+		<td><%= link_to comment.topic.title.truncate(20), topic_path(comment.topic_id) %></td>
+		<td><%= comment.content.truncate(40) %></td>
+		<td><%= comment.created_at.strftime('%Y/%m/%d') %></td>	
+		<td>
+			<% if comment.id >= Topic.find(comment.topic_id).comments.last.id %>
+				無
+			<% else %>
+			  有
+			<% end %>
+		</td>
+		<td><%= comment.topic.last_comment_at.strftime('%m/%d %H:%M') %></td>
+  </tr>
+<% end %>
+</table>

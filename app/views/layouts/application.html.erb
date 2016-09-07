@@ -19,23 +19,20 @@
   </head>
 
 <body>
-<!-- 登入 flag -->
-<div class="clearfix">
-  <% if current_user %>
-    <%= link_to current_user.name+' ('+current_user.email+')', profile_user_path(current_user) %> |
-    
-    <%= link_to('登出', destroy_user_session_path, :method => :delete) %> |
-    <%= link_to('修改密碼', edit_registration_path(:user)) %>
-  <% else %>
-    <%= link_to('註冊', new_registration_path(:user)) %> |
-    <%= link_to('登入', new_session_path(:user)) %> or
-    <%= link_to "以 Facebook 登入", user_facebook_omniauth_authorize_path %>
-  <% end %> 
 
-  <!-- 全站導覽列 -->
+<!-- 全站導覽列 -->
+<div class="clearfix">
+  <p class="pull-left"><%= link_to "回到首頁", topics_path %></p>
   <ul class="list-inline pull-right">
     <li><%= link_to "關於本站", about_topics_path %></li>
-    <li>會員中心</li>
+    <% if current_user %>
+      <li><%= link_to '會員中心 ('+current_user.name+')', profile_user_path(current_user) %></li>
+      <li><%= link_to('登出', destroy_user_session_path, :method => :delete) %></li>
+    <% else %>
+      <%= link_to('註冊', new_registration_path(:user)) %> |
+      <%= link_to('登入', new_session_path(:user)) %> or
+      <%= link_to "以 Facebook 登入", user_facebook_omniauth_authorize_path %>
+    <% end %> 
   </ul>  
 </div>
 <!-- 警告訊息 -->
