@@ -17,28 +17,26 @@ class TopicsController < ApplicationController
 		end
 	end
 
-	def index
-		# @category = Category.find(params[:id])
-		# @topics = Topic.order_the_list(params[:order], params[:page])		
- 
+	def index 
  		if params[:category].present?
  			@category = Category.find(params[:category])
  			@page_title = @category.name
-			@topics = @category.topics.order('id DESC').page(params[:page]).per(10)
+			@topics = @category.topics
 		else
-			@page_title = "XXX 課程中心"	
-			@topics = Topic.order('id DESC').page(params[:page]).per(10)
+			@page_title = "專案實作學習中心"	
+			@topics = Topic
 		end
 
 		if params[:order]
-			@topics = @topics.order("#{params[:order]} DESC").page(params[:page]).per(10)
+			@topics = @topics.order(params[:order].to_sym => :DESC)
 		else
-			@topics.order('id DESC')
+			@topics = @topics.order('id ASC')
 		end
+		prepare_variable_for_template
 	end
 
-	# GET topics/latest
-	def latest
+	# GET topics/about
+	def about
 			@topics = Topic.order("id DESC").limit(3)
 	end
 
@@ -69,6 +67,7 @@ class TopicsController < ApplicationController
 		redirect_to :action => :index
 	end
 
+
 	private
 	def topic_params
 		params.require(:topic).permit(:title, :content, :logo, :category_ids => [])
@@ -76,5 +75,9 @@ class TopicsController < ApplicationController
 
 	def set_topic
 		@topic = Topic.find(params[:id])
+	end
+
+	def prepare_variable_for_template
+		@topics = @topics.page(params[:page]).per(10)
 	end
 end

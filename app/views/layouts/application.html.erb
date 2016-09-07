@@ -30,11 +30,11 @@
   <%= link_to "以 Facebook 登入", user_facebook_omniauth_authorize_path %>
 <% end %> 
 
-<!-- navigation -->
+<!-- 全站導覽列 -->
 <ul class="list-inline pull-right">
-  <li>關於本站</li>
+  <li><%= link_to "關於本站", about_topics_path %></li>
   <li>會員中心</li>
-  <li><%= link_to "Latest Topics", latest_topics_path %></li>
+  
 </ul>  
 
 <!-- 警告訊息 -->

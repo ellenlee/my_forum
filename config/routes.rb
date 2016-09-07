@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :topics do
   	collection do
-  		get :latest
+  		get :about
   	end
   	resources :comments, :controller => "topic_comments"
   end
