@@ -1,25 +1,21 @@
 <!-- header -->
 <h1><%= @post.title %></h1>
 
-<div id="post_like">
+<div id="post_like" class="pull-right">
 	<% if current_user.liked_posts?(@post) %>
 		<%= button_to 'unlike', like_path(@post), :method => :delete, :remote => true %>
 	<% else %>
 		<%= button_to 'like', likes_path( id: params[:id]), :params => :id, :remote => true %>
 	<% end %>
 </div>
+
+<div id="post-info">
+	<p>
+		<%= link_to @post.user.name, profile_user_path %>｜
+		<%= @post.created_at.strftime('%Y-%m-%d %H:%M')%>
+	</p>
 	
-<footer class=" pull-right">
-	<%= link_to @post.user.name, profile_user_path %>｜
-	<%= @post.created_at.strftime('%Y-%m-%d %H:%M')%>
-</footer>
-
-<ul class="list-inline">
-	<% @post.categories.each do |cate| %>
-		<li class="btn btn-default btn-xs active"><%= cate.name %></li>
-	<% end %>		
-</ul>
-
+</div>
 
 <!-- content -->
 <% if @post.img.exists? %>
@@ -28,8 +24,17 @@
 
 <%= simple_format(@post.content) %>
 
+<!-- footer -->
+<br>
+
+<ul class="list-inline pull-right">
+	<% @post.categories.each do |cate| %>
+		<li class="btn btn-default btn-xs active"><%= cate.name %></li>
+	<% end %>		
+</ul>
+<p>瀏覽人次：<%= @post.viewed_count %></p>
 <% if @post.user == current_user %>
-	<p class="text-right"><small>
+	<p><small>
 		<%= link_to 'Edit', edit_post_path(@post)  %> - 
 		<%= link_to 'Delete', post_path(@post) , :method => :delete %>
 	</small></p>

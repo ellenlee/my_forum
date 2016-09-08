@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908035918) do
+ActiveRecord::Schema.define(version: 20160908091337) do
 
   create_table "api_demos", force: :cascade do |t|
     t.integer  "raw_id"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20160908035918) do
     t.string   "img_content_type"
     t.integer  "img_file_size"
     t.datetime "img_updated_at"
+    t.integer  "viewed_count",     default: 0
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 

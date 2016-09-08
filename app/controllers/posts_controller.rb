@@ -42,6 +42,9 @@ class PostsController < ApplicationController
 	# GET /posts/:id/
 	def show
 		@reply = Reply.new
+
+		@post.viewed_count += 1
+		@post.save
 	end
 
 	# GET /posts/:id/edit
