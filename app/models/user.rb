@@ -10,6 +10,13 @@ class User < ApplicationRecord
   has_many :posts
   has_many :replies
 
+  has_many :like, :dependent => :destroy
+  has_many :liked_posts, :through => :like, :source => :post
+
+  def liked_posts?(post)
+    self.liked_posts.include?(post)
+  end
+
   def self.from_omniauth(auth)
   	# Case 1: Find existing user by facebook uid
      user = User.find_by_fb_uid( auth.uid )

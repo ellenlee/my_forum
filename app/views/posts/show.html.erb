@@ -1,6 +1,14 @@
 <!-- header -->
 <h1><%= @post.title %></h1>
 
+<div id="post_like">
+	<% if current_user.liked_posts?(@post) %>
+		<%= button_to 'unlike', like_path(@post), :method => :delete, :remote => true %>
+	<% else %>
+		<%= button_to 'like', likes_path( id: params[:id]), :params => :id, :remote => true %>
+	<% end %>
+</div>
+	
 <footer class=" pull-right">
 	<%= link_to @post.user.name, profile_user_path %>｜
 	<%= @post.created_at.strftime('%Y-%m-%d %H:%M')%>
@@ -11,6 +19,7 @@
 		<li class="btn btn-default btn-xs active"><%= cate.name %></li>
 	<% end %>		
 </ul>
+
 
 <!-- content -->
 <% if @post.img.exists? %>

@@ -45,9 +45,13 @@ class PostRepliesController < ApplicationController
   end
 
   def post_replies_info_update
+  	# event = self.event
   	@post.last_reply_at = @reply.created_at
 		@post.replies_count = @post.replies.size
+		# +1
+		#evet...at = self.created.at
 		@post.save
+		# 寫在model
   end
 
 end

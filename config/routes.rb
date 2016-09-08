@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   	resources :replies, :controller => "post_replies"
   end
 
+  resources :likes, :only => [:destroy, :create]
+
   resources :categories
 
   root to: 'posts#index'

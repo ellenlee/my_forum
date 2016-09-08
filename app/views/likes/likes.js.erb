@@ -1,0 +1,9 @@
+<% if current_user.liked_posts?(@post) %>
+
+	$('#post_like').html('<%= button_to "unlike", like_path(@post), :method => :delete, :remote => true %>');
+
+<% else %>
+
+	$('#post_like').html('<%= button_to "like", likes_path( id: params[:id]), :params => :id, :remote => true %>');
+
+<% end %>
