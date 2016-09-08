@@ -1,0 +1,20 @@
+
+
+	<!-- 文章列表 -->
+	<% posts.each do |post| %>
+	<tr>
+		<td>
+			#<%= post.id %></td>
+  	<td class='text-left'><%= link_to post.title, post_path(post) %></td>
+  	<td><%= post.replies_count %></td>
+		<td><%= post.user.name %></td>
+		<td><%= post.created_at.strftime('%Y-%m-%d') %></td>
+		<% if post.replies_count == 0 %>
+			<td></td>
+			<td></td>
+		<% else %>
+			<td><%= post.replies.last.user.name %></td>	
+			<td><%= post.last_reply_at.strftime('%m-%d %H:%M') %></td>
+		<% end %>		
+  </tr>
+<% end %>

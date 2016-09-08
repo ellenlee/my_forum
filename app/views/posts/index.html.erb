@@ -11,9 +11,10 @@
 	</ul>
 	</small>
 
-<!-- 文章列表標題（具排序功能） -->
 <%= paginate @posts %>
-<table class="table table-condensed text-center">
+<!-- 文章列表標題（具排序功能） -->
+
+<table class="table table-condensed">
 	<tr>
 		<th><%= link_to '#▾', posts_path(order: 'id', category: params[:category]) %></th>
 		<th>主題貼</th>
@@ -24,25 +25,8 @@
 		<th><%= link_to '最新回覆時間▾', posts_path(order: 'last_reply_at', category: params[:category]) %></th>	
 		<th></th>
 	</tr>
-
-	<!-- 所選範疇內的文章列表 -->
-	<% @posts.each do |post| %>
-	<tr>
-		<td>
-			#<%= post.id %></td>
-  	<td class='text-left'><%= link_to post.title, post_path(post) %></td>
-  	<td><%= post.replies_count %></td>
-		<td><%= post.user.name %></td>
-		<td><%= post.created_at.strftime('%Y-%m-%d') %></td>
-		<% if post.replies_count == 0 %>
-			<td></td>
-			<td></td>
-		<% else %>
-			<td><%= post.replies.last.user.name %></td>	
-			<td><%= post.last_reply_at.strftime('%m-%d %H:%M') %></td>
-		<% end %>		
-  </tr>
-<% end %>
+	<!-- 文章列表 -->
+		<%= render :partial => 'list', :locals => { :posts => @posts } %>
 </table>
 
 <br>

@@ -22,8 +22,6 @@
 <h3>我的文章<small>(<%= current_user.posts.count %>)</small></h3>
 <!-- 文章列表標題（具排序功能） -->
 <%= paginate @posts, :param_name => :p_page %>
-
-
 <table class="table table-condensed">
 	<tr>
 		<th>#</th>
@@ -35,27 +33,8 @@
 		<th>最新回覆時間</th>	
 		<th></th>
 	</tr>
-<!-- 所選範疇內的文章列表 -->
-
-<% @posts.each do |post| %>
-
-	<tr>
-		<td>
-			#<%= post.id %></td>
-  	<td class='text-left'><%= link_to post.title, post_path(post) %></td>
-  	<td>
-  		<%= post.replies_count %></td>
-		<td><%= post.user.name %></td>
-		<td><%= post.created_at.strftime('%Y-%m-%d') %></td>
-		<% if post.replies_count == 0 %>
-			<td></td>
-			<td></td>
-		<% else %>
-			<td><%= post.replies.last.user.name %></td>	
-			<td><%= post.last_reply_at.strftime('%m-%d %H:%M') %></td>
-		<% end %>		
-  </tr>
-<% end %>
+<!-- 文章列表 -->
+<%= render :partial => '/posts/list', :locals => { :posts => @posts } %>
 </table>
 
 <h3>我的留言<small>(<%=current_user.replies.count %>)</small></h3>
@@ -70,8 +49,8 @@
 		<th>回應</th>
 		<th>最新回覆時間</th>
 	</tr>
-<!-- 所選範疇內的文章列表 -->
 
+<!-- 文章列表 -->
 <% @replies.each do |reply| %>
 
 	<tr>
