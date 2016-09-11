@@ -17,8 +17,16 @@
 	</div>
 </div>
 
+<!-- 導覽列 -->
+<ul class="list-inline">
+	<li><%= link_to '我的收藏', collection_user_path(current_user) %></li>
+</ul>	
+<section>
+	
+</section>
 
-<hr >
+
+<hr>
 <h3>我的文章<small>(<%= current_user.posts.count %>)</small></h3>
 <!-- 文章列表標題（具排序功能） -->
 <%= paginate @posts, :param_name => :p_page %>
