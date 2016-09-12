@@ -42,9 +42,12 @@ class PostsController < ApplicationController
 	# GET /posts/:id/
 	def show
 		@reply = Reply.new
+		@liked_user = @post.liked_posts
+		@collected_user = @post.collected_posts
 
 		@post.viewed_count += 1
 		@post.save
+
 	end
 
 	# GET /posts/:id/edit

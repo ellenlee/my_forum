@@ -21,8 +21,11 @@
 <% if @post.img.exists? %>
 	<%= image_tag( @post.img.url(:medium) ) %>
 <% end %>
+<div class="post_content">
+	<%= simple_format(@post.content) %>	
+</div>
 
-<%= simple_format(@post.content) %>
+
 
 <!-- footer -->
 <br>
@@ -33,6 +36,19 @@
 	<% end %>		
 </ul>
 <p>瀏覽人次：<%= @post.viewed_count %></p>
+
+<!-- Who likes this post -->
+<div class="who_like ">
+	<p>共有 <%= @liked_user.count %> 個人喜歡這篇文章：
+		<% @liked_user.each do |user| %>
+			[<%= user.name %>] 
+		<% end %>
+	</p>
+	<p>這篇文章被 <%= @collected_user.count %> 個人收藏 </p>		
+</div>
+
+
+
 <% if @post.user == current_user %>
 	<p><small>
 		<%= link_to 'Edit', edit_post_path(@post)  %> - 

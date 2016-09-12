@@ -10,7 +10,9 @@
 		<th>張貼時間</th>
 		<th>最新回覆</th>
 		<th><%= link_to '最新回覆時間▾', posts_path(order: 'last_reply_at', category: params[:category]) %></th>	
-		<th>收藏本文</font></th>
+		<% if current_user %>
+			<th>收藏本文</font></th>
+		<% end %>
 	</tr>
 
 	<!-- 文章列表 -->
@@ -30,13 +32,15 @@
 			<td><%= post.replies.last.user.name %></td>	
 			<td><%= post.last_reply_at.strftime('%m-%d %H:%M') %></td>
 		<% end %>	
-		<td class="post_collect_<%= post.id %>">
-			<% if current_user.collected_posts?(post) %>
-				<%= link_to '取消收藏', collection_user_path(current_user,:post_id => post), :remote => true %>
-			<% else %>
-				<%= link_to '加入收藏', collection_user_path(current_user,:post_id => post), :remote => true %>
-			<% end %>
-		</td>	
+		<% if current_user %>
+			<td class="post_collect_<%= post.id %>">
+				<% if current_user.collected_posts?(post) %>
+					<%= link_to '取消收藏', collection_user_path(current_user,:post_id => post), :remote => true %>
+				<% else %>
+					<%= link_to '加入收藏', collection_user_path(current_user,:post_id => post), :remote => true %>
+				<% end %>
+			</td>	
+		<% end %>
   </tr>
 	<% end %>
 
