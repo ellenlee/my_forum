@@ -1,0 +1,40 @@
+<h3>文章分類</h3>
+
+<table class="table table-condensed">
+	<tr>
+		<th>分類名稱</th>
+		<th>文章數</th>
+		<th>創建日期</th>
+		<th>編輯</th>
+		<th>刪除</th>
+	</tr>
+
+	<% @categories.all.each do |cate| %>
+		<tr>
+			<td><%= cate.name %></td>
+			<td><%= cate.posts.count %></td>
+			<td><%= cate.created_at.strftime('%Y-%m-%d') %></td>
+			<td><%= link_to 'Edit', admin_categories_path(:id =>cate) %></td>
+			<td><%= link_to 'Delete', admin_category_path(cate), :method => :delete %></td>
+		</tr>
+	<% end %>
+</table>	
+
+
+<% if @category.id %>
+  <h3><%= "Edit" %></h3> 
+  <%= form_for @category, url: admin_category_path(@category) do |f| %>
+	  <%= f.text_field :name %>
+		<%= f.submit %>
+	<% end %>
+	<%= button_to 'clear',admin_categories_path, :method => :get%>
+<% else %>
+  <h3><%= "New" %></h3>
+  <%= form_for @category, url: admin_categories_path do |f| %>
+	  <%= f.text_field :name %>
+		<%= f.submit %>
+	<% end %>
+<% end %>
+
+
+	
