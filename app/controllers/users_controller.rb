@@ -25,16 +25,13 @@ class UsersController < ApplicationController
 
 		# 點擊收藏按鈕時
 		if params[:post_id].present?
+
 			@post = Post.find_by_id(params[:post_id])
 			if current_user.collected_posts?(@post)
 				current_user.collected_posts.delete(@post)
 	    else
 	      current_user.collected_posts << @post
 	    end
-			# 更改按鈕
-	    # respond_to do |format|
-    	# format.js 
-    	# end
 		end
     
     # 讀出清單

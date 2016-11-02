@@ -1,13 +1,29 @@
 <!-- header -->
 <h1><%= @post.title %></h1>
 
-<div id="post_like" class="pull-right">
-	<% if current_user.liked_posts?(@post) %>
-		<%= button_to 'unlike', like_path(@post), :method => :delete, :remote => true %>
-	<% else %>
-		<%= button_to 'like', likes_path( id: params[:id]), :params => :id, :remote => true %>
-	<% end %>
-</div>
+<!-- like and collect-->
+<ul class="list-inline pull-right">
+	<li>
+		<div id="post_like">
+			<% if current_user.liked_posts?(@post) %>
+				<%= button_to 'unlike', like_path(@post), :method => :delete, :remote => true %>
+			<% else %>
+				<%= button_to 'like', likes_path( id: params[:id]), :params => :id, :remote => true %>
+			<% end %>
+		</div>
+		
+	</li>
+	<li>
+		<div class="post_collect_<%= @post.id %>">
+			<% if current_user.collected_posts?(@post) %>
+				<%= button_to "取消收藏", collection_user_path(current_user,:post_id => @post), :method => :get, :remote => true %>
+			<% else %>
+				<%= button_to "加入收藏", collection_user_path(current_user,:post_id => @post), :method => :get, :remote => true %>
+			<% end %>
+
+		</div>
+	</li>
+</ul>
 
 <div id="post-info">
 	<p>

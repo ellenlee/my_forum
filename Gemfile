@@ -50,7 +50,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   #假資料
   gem 'faker'
-
+  gem 'rspec-rails'
+  gem 'guard-rspec', require: false
 end
 
 group :development do

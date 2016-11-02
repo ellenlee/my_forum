@@ -77,6 +77,7 @@ class PostsController < ApplicationController
 			@post.destroy
 		end
 		redirect_to :action => :index
+		flash[:alert] = "文章已刪除"
 	end
 
 	private

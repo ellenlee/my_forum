@@ -16,6 +16,28 @@ class User < ApplicationRecord
   has_many :collections, :dependent => :destroy
   has_many :collected_posts, :through => :collections, :source => :post
 
+  before_create :generate_authentication_token
+  
+  def generate_authentication_token
+      self.authentication_token = Devise.friendly_token
+  end
+
+  def self.get_fb_data(access_token)
+    res = RestClient.get "https://graph.facebook.com/v2.4/me", { :params => { :access_token => access_token }}
+
+    if res.code == 200
+      JSON.parse( res.to_str )
+    else
+      Rails.logger.warn(res.body)
+      nil
+    end
+  end
+
+  def get_fb_data
+    j = RestClient.get "https://graph.facebook.com/v2.5/me", :params => { :access_token => self.fb_token, :fields => "id,name,email,picture" }
+    JSON.parse(j)
+  end
+
   def liked_posts?(post)
     self.liked_posts.include?(post)
   end
@@ -55,6 +77,8 @@ class User < ApplicationRecord
      user.save!
      return user
   end
+
+  
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/

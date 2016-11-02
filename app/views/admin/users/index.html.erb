@@ -1,0 +1,32 @@
+<h3>全站使用者</h3>
+
+<table class="table table-condensed">
+	<tr>
+		<th>#</th>
+		<th>名稱</th>
+		<th>註冊日期</th>
+		<th>權限</th>
+		<th>編輯</th>
+		<th>刪除</th>
+	</tr>
+
+	<% @users.all.each do |user| %>
+		<tr>
+			<td><%= user.id %></td>
+			<td><%= user.name %></td>
+			<td><%= user.created_at.strftime('%Y-%m-%d') %></td>
+			<td>
+				<% if %>
+				<% else %>
+				<% end %>
+			</td>
+			<td><%= link_to 'Edit', admin_user_path(user) %></td>
+			<td><%= link_to 'Delete', admin_user_path(user), :method => :delete %></td>
+		</tr>
+	<% end %>
+</table>	
+
+
+
+
+	
