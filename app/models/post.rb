@@ -1,8 +1,8 @@
 class Post < ApplicationRecord
 	validates_presence_of :title
- 
-	belongs_to :user  # 預設不能為空白，除非加 :optional => true
- 
+
+	belongs_to :user, :optional => true
+
 	has_many :replies
 	has_many :post_categoryships, :dependent => :destroy
 	has_many :categories, :through =>:post_categoryships
